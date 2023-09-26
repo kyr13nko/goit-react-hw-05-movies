@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { fetchTrendingMovies } from 'services/moviesAPI';
 import { toast } from 'react-toastify';
-import { FallingLines } from 'react-loader-spinner';
 import MoviesList from 'components/MoviesList/MoviesList';
 import Loader from 'components/Loader/Loader';
 
