@@ -28,7 +28,7 @@ export const Home = () => {
     <>
       <h2>Trending today</h2>
       {isLoading && <Loader />}
-      <MoviesList trendingMovies={trending} />
+      <MoviesList movies={trending} />
     </>
   );
 };
