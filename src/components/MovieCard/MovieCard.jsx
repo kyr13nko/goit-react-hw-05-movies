@@ -9,8 +9,8 @@ const MovieCard = ({ movieDetails }) => {
     backdrop_path,
     title,
     name,
-    // vote_average,
-    // release_date,
+    vote_average,
+    release_date,
     overview,
     genres,
   } = movieDetails;
@@ -20,25 +20,39 @@ const MovieCard = ({ movieDetails }) => {
       ? IMG_PATH + (poster_path ?? backdrop_path)
       : noPoster;
 
-  console.log('movieDetails', movieDetails);
+  const year = release_date?.toString().slice(0, 4);
 
   return (
     <>
-      <button type="button">Go back</button>
-      <CardContainer>
-        <Image src={poster} alt={name || title} />
-        <div>
-          <h1>{name || title}</h1>
-          <h3>Overview</h3>
-          <p>{overview}</p>
-          <h3>Genres</h3>
-          <ul>
-            {genres?.map(({ id, name }) => {
-              return <li key={id}>{name}</li>;
-            })}
-          </ul>
-        </div>
-      </CardContainer>
+      {movieDetails && (
+        <CardContainer>
+          <Image src={poster} alt={name || title} />
+          <div>
+            <h1>
+              {name || title} {year && `(${year})`}
+            </h1>
+            {vote_average && (
+              <p>User score: {Math.round(vote_average * 10)}%</p>
+            )}
+            {overview && (
+              <>
+                <h3>Overview</h3>
+                <p>{overview}</p>
+              </>
+            )}
+            {genres && (
+              <>
+                <h3>Genres</h3>
+                <ul>
+                  {genres?.map(({ id, name }) => {
+                    return <li key={id}>{name}</li>;
+                  })}
+                </ul>
+              </>
+            )}
+          </div>
+        </CardContainer>
+      )}
     </>
   );
 };
