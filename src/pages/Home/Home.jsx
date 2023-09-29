@@ -17,6 +17,7 @@ export const Home = () => {
         setTrending(results);
       } catch (error) {
         toast.error('Something went wrong. Please try again later.');
+        console.log(error.message);
       } finally {
         setIsLoading(false);
       }

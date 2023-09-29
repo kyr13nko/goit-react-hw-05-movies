@@ -1,6 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { Container, Header, Navigation, StyledLink } from './Layout.styled';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Layout = () => {
   return (
     <>
@@ -17,6 +20,7 @@ const Layout = () => {
           <Outlet />
         </Container>
       </main>
+      <ToastContainer autoClose={3000} theme="colored" />
     </>
   );
 };

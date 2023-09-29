@@ -11,7 +11,6 @@ export const Movies = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const query = searchParam.get('query') || '';
-  console.log('query', query);
 
   useEffect(() => {
     const getSearchMovies = async searchQuery => {
@@ -20,13 +19,14 @@ export const Movies = () => {
         const { results } = await fetchSearchMovies(searchQuery);
 
         if (results.length === 0) {
-          alert(`There is no movie with "${searchQuery}" title`);
+          toast.warning(`There is no movie with "${searchQuery}" title`);
           return;
         }
 
         setSearchMovies(results);
       } catch (error) {
         toast.error('Something went wrong. Please try again later.');
+        console.log(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -40,9 +40,12 @@ export const Movies = () => {
 
     const searchValue = event.target.elements.search.value.trim();
 
-    if (searchValue === '') return;
+    if (searchValue === '') {
+      toast.warn('Please try to type something');
+      return;
+    }
 
-    const validSearchParam = searchValue !== '' ? { query: searchValue } : {};
+    const validSearchParam = searchValue !== '' ? { query: searchValue } : '';
 
     setSearchParam(validSearchParam);
   };
