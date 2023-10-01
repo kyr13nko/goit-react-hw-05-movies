@@ -1,7 +1,5 @@
 import { CardContainer, Image } from './MovieCard.styled';
-import noPoster from '../../images/no-cover.png';
-
-const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
+import { getImage } from 'services/getImage';
 
 const MovieCard = ({ movieDetails }) => {
   const {
@@ -15,25 +13,25 @@ const MovieCard = ({ movieDetails }) => {
     genres,
   } = movieDetails;
 
-  const poster =
-    poster_path || backdrop_path
-      ? IMG_PATH + (poster_path ?? backdrop_path)
-      : noPoster;
-
   const year = release_date?.toString().slice(0, 4);
+  const userScore = Math.round(vote_average * 10);
+  const getGenres = genres?.map(({ id, name }) => {
+    return <li key={id}>{name}</li>;
+  });
 
   return (
     <>
       {movieDetails && (
         <CardContainer>
-          <Image src={poster} alt={name || title} />
+          <Image
+            src={getImage(poster_path || backdrop_path)}
+            alt={name || title}
+          />
           <div>
-            <h1>
+            <h2>
               {name || title} {year && `(${year})`}
-            </h1>
-            {vote_average && (
-              <p>User score: {Math.round(vote_average * 10)}%</p>
-            )}
+            </h2>
+            {vote_average >= 0 && <p>User score: {userScore}%</p>}
             {overview && (
               <>
                 <h3>Overview</h3>
@@ -43,11 +41,7 @@ const MovieCard = ({ movieDetails }) => {
             {genres && (
               <>
                 <h3>Genres</h3>
-                <ul>
-                  {genres?.map(({ id, name }) => {
-                    return <li key={id}>{name}</li>;
-                  })}
-                </ul>
+                <ul>{getGenres}</ul>
               </>
             )}
           </div>

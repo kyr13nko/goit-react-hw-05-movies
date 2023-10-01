@@ -8,5 +8,5 @@ export const CardContainer = styled.div`
 `;
 
 export const Image = styled.img`
-  max-width: 300px;
+  max-width: 250px;
 `;

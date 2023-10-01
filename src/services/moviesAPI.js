@@ -19,3 +19,17 @@ export const fetchMovieDetails = async movieId => {
   const { data } = await axios.get(`/movie/${movieId}?api_key=${API_KEY}`);
   return data;
 };
+
+export const fetchMovieCast = async movieId => {
+  const { data } = await axios.get(
+    `/movie/${movieId}/credits?api_key=${API_KEY}`
+  );
+  return data;
+};
+
+export const fetchMovieReviews = async movieId => {
+  const { data } = await axios.get(
+    `/movie/${movieId}/reviews?api_key=${API_KEY}`
+  );
+  return data;
+};

@@ -28,8 +28,7 @@ export const Home = () => {
   return (
     <>
       <h2>Trending today</h2>
-      {isLoading && <Loader />}
-      <MoviesList movies={trending} />
+      {isLoading ? <Loader /> : <MoviesList movies={trending} />}
     </>
   );
 };

@@ -66,8 +66,7 @@ export const Movies = () => {
         <button type="submit">Search</button>
       </form>
 
-      {isLoading && <Loader />}
-      <MoviesList movies={searchMovies} />
+      {isLoading ? <Loader /> : <MoviesList movies={searchMovies} />}
     </>
   );
 };
