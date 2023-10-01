@@ -5,8 +5,6 @@ import { Item, List, MovieLink, Wrapper } from './MovieList.styled';
 const MoviesList = ({ movies }) => {
   const location = useLocation();
 
-  console.log('movies', movies);
-
   return (
     <List>
       {movies.map(({ id, name, title, poster_path, backdrop_path }) => (
