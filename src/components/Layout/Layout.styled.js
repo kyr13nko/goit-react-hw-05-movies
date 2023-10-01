@@ -34,5 +34,10 @@ export const StyledLink = styled(NavLink)`
 `;
 
 export const Container = styled.div`
-  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  padding: 24px 24px;
 `;

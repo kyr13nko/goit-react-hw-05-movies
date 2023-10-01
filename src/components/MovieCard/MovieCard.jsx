@@ -1,4 +1,4 @@
-import { CardContainer, Image } from './MovieCard.styled';
+import { CardContainer, CardWrapper } from './MovieCard.styled';
 import { getImage } from 'services/getImage';
 
 const MovieCard = ({ movieDetails }) => {
@@ -15,39 +15,34 @@ const MovieCard = ({ movieDetails }) => {
 
   const year = release_date?.toString().slice(0, 4);
   const userScore = Math.round(vote_average * 10);
-  const getGenres = genres?.map(({ id, name }) => {
-    return <li key={id}>{name}</li>;
-  });
+  const getGenres = genres?.map(({ name }) => name).join(' | ');
 
   return (
-    <>
-      {movieDetails && (
-        <CardContainer>
-          <Image
-            src={getImage(poster_path || backdrop_path)}
-            alt={name || title}
-          />
-          <div>
-            <h2>
-              {name || title} {year && `(${year})`}
-            </h2>
-            {vote_average >= 0 && <p>User score: {userScore}%</p>}
-            {overview && (
-              <>
-                <h3>Overview</h3>
-                <p>{overview}</p>
-              </>
-            )}
-            {genres && (
-              <>
-                <h3>Genres</h3>
-                <ul>{getGenres}</ul>
-              </>
-            )}
-          </div>
-        </CardContainer>
-      )}
-    </>
+    movieDetails && (
+      <CardContainer>
+        <img src={getImage(poster_path || backdrop_path)} alt={name || title} />
+        <CardWrapper>
+          <h2>
+            {name || title} {year && `(${year})`}
+          </h2>
+          {vote_average >= 0 && (
+            <p>
+              <b>User score:</b> {userScore}%
+            </p>
+          )}
+          {overview && (
+            <p>
+              <b>Overview:</b> {overview}
+            </p>
+          )}
+          {genres && (
+            <p>
+              <b>Genres:</b> {getGenres}
+            </p>
+          )}
+        </CardWrapper>
+      </CardContainer>
+    )
   );
 };
 

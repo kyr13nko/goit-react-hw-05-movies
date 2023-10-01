@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import MoviesList from 'components/MoviesList/MoviesList';
 import Loader from 'components/Loader/Loader';
 
-export const Home = () => {
+const Home = () => {
   const [trending, setTrending] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,3 +32,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

@@ -1,18 +1,12 @@
-import { Link } from 'react-router-dom';
+import { StyledLink, WrapperLink } from './MovieInfo.styled';
 
 const MovieInfo = () => {
   return (
-    <div>
-      <h3>Additional information</h3>
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
-    </div>
+    <WrapperLink>
+      <h3>Additional information:</h3>
+      <StyledLink to="cast">Cast</StyledLink>
+      <StyledLink to="reviews">Reviews</StyledLink>
+    </WrapperLink>
   );
 };
 

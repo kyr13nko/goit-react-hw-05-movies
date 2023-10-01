@@ -1,12 +1,13 @@
 import Loader from 'components/Loader/Loader';
 import MovieCard from 'components/MovieCard/MovieCard';
 import MovieInfo from 'components/MovieInfo/MovieInfo';
-import { useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchMovieDetails } from 'services/moviesAPI';
+import { StyledLink, Wrapper } from './MovieDetail.styled';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +31,8 @@ export const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
-      <Link to={goBackPath.current}>Go back</Link>
+    <Wrapper>
+      <StyledLink to={goBackPath.current}>{`< Go back`}</StyledLink>
       {isLoading ? (
         <Loader />
       ) : (
@@ -40,7 +41,11 @@ export const MovieDetails = () => {
           <MovieInfo />
         </>
       )}
-      <Outlet />
-    </>
+      <Suspense>
+        <Outlet />
+      </Suspense>
+    </Wrapper>
   );
 };
+
+export default MovieDetails;

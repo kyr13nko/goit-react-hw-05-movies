@@ -1,11 +1,14 @@
-import Loader from 'components/Loader/Loader';
-import MoviesList from 'components/MoviesList/MoviesList';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { fetchSearchMovies } from 'services/moviesAPI';
 
-export const Movies = () => {
+import SearchForm from 'components/SearchForm/SearchForm';
+import MoviesList from 'components/MoviesList/MoviesList';
+import Loader from 'components/Loader/Loader';
+
+import { toast } from 'react-toastify';
+
+const Movies = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const [searchMovies, setSearchMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,20 +56,10 @@ export const Movies = () => {
   return (
     <>
       <h2>Choose the movie</h2>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="search"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search movie"
-          defaultValue={query}
-        />
-        <button type="submit">Search</button>
-      </form>
-
+      <SearchForm handleSubmit={handleSubmit} query={query} />
       {isLoading ? <Loader /> : <MoviesList movies={searchMovies} />}
     </>
   );
 };
+
+export default Movies;

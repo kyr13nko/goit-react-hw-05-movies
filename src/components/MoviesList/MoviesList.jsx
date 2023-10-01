@@ -1,18 +1,28 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { getImage } from 'services/getImage';
+import { Item, List, MovieLink, Wrapper } from './MovieList.styled';
 
 const MoviesList = ({ movies }) => {
   const location = useLocation();
 
+  console.log('movies', movies);
+
   return (
-    <ul>
-      {movies.map(({ id, name, title }) => (
-        <li key={id}>
-          <Link to={`/movies/${id}`} state={{ from: location }}>
-            {name ?? title}
-          </Link>
-        </li>
+    <List>
+      {movies.map(({ id, name, title, poster_path, backdrop_path }) => (
+        <Item key={id}>
+          <MovieLink to={`/movies/${id}`} state={{ from: location }}>
+            <Wrapper>
+              <img
+                src={getImage(poster_path ?? backdrop_path)}
+                alt={name ?? title}
+              />
+              <p>{name ?? title}</p>
+            </Wrapper>
+          </MovieLink>
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 };
 
