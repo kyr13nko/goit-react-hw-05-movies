@@ -9,7 +9,7 @@ import Loader from 'components/Loader/Loader';
 import { toast } from 'react-toastify';
 
 const Movies = () => {
-  const [searchParam, setSearchParam] = useSearchParams();
+  const [searchParam] = useSearchParams();
   const [searchMovies, setSearchMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,25 +38,10 @@ const Movies = () => {
     query && getSearchMovies(query);
   }, [query]);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    const searchValue = event.target.elements.search.value.trim();
-
-    if (searchValue === '') {
-      toast.warn('Please try to type something');
-      return;
-    }
-
-    const validSearchParam = searchValue !== '' ? { query: searchValue } : '';
-
-    setSearchParam(validSearchParam);
-  };
-
   return (
     <>
       <h2>Choose the movie</h2>
-      <SearchForm handleSubmit={handleSubmit} query={query} />
+      <SearchForm />
       {isLoading ? <Loader /> : <MoviesList movies={searchMovies} />}
     </>
   );
